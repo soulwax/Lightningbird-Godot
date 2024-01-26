@@ -24,6 +24,22 @@ func new_game():
 	scroll = 0
 	$Bird.reset()
 
+func _input(event):
+	if game_over == false:
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+				if game_running == false:
+					start_game()
+				else:
+					if $Bird.flying:
+						$Bird.flap()
+
+
+func start_game():
+	game_running = true
+	$Bird.flying = true
+	$Bird.flap()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	log(delta)
