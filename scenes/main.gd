@@ -1,6 +1,8 @@
 @uid("uid://d3012p6bkk1kk") # Generated automatically, do not modify.
 extends Node2D
 
+@export var pipe_scene : PackedScene
+
 var game_running : bool
 var game_over : bool
 var scroll
@@ -23,6 +25,9 @@ func new_game():
 	game_over = false
 	score = 0
 	scroll = 0
+	pipes.clear()
+	# generate starting pipes
+	generate_pipes()
 	$Bird.reset()
 
 func _input(event):
@@ -40,7 +45,9 @@ func start_game():
 	game_running = true
 	$Bird.flying = true
 	$Bird.flap()
-
+	#start pipe counter
+	$PipeTimer.start()
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if game_running:
@@ -49,3 +56,21 @@ func _process(delta):
 			scroll = 0
 		# move ground node
 		$Ground.position.x = -scroll
+		# move pipes
+		for pipe in pipes:
+			pipe.position.x -= SCROLL_SPEED * delta
+	
+func generate_pipes():
+	var pipe = pipe_scene.instantiate()
+	pipe.position.x = screen_size.x + PIPE_DELAY
+	pipe.position.y = (screen_size.y - ground_height) / 2.0 + randi_range(-PIPE_RANGE, PIPE_RANGE)
+	pipe.hit.connect(bird_hit)
+	add_child(pipe)
+	pipes.append(pipe)
+
+
+func _on_pipe_timer_timeout():
+	generate_pipes()
+
+func bird_hit():
+	pass
