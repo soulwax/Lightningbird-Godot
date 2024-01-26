@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://csvdt8ebvvatw"]
+
+[ext_resource type="Script" uid="uid://dwxkv7pws7opn" path="res://scenes/game_over.gd" id="1_l22dt"]
+
+[sub_resource type="FontVariation" id="FontVariation_ty2xd"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_nbeba"]
+
+[node name="GameOver" type="CanvasLayer"]
+offset = Vector2(160, 63)
+transform = Transform2D(1, 0, 0, 1, 160, 63)
+script = ExtResource("1_l22dt")
+
+[node name="CopeButton" type="Button" parent="."]
+offset_right = 132.0
+offset_bottom = 50.0
+theme_override_fonts/font = SubResource("FontVariation_ty2xd")
+theme_override_font_sizes/font_size = 40
+toggle_mode = true
+button_group = SubResource("ButtonGroup_nbeba")
+text = "RESTART
+"
+
+[connection signal="pressed" from="CopeButton" to="." method="_on_cope_button_pressed"]

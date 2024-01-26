@@ -26,6 +26,9 @@ func new_game():
 	score = 0
 	scroll = 0
 	$CanvasLayer/ScoreLabel.text = "SCORE: " + str(score)
+	$CanvasLayer/GameOver.visible = false
+	get_tree().call_group("pipes", "queue_free")
+	# clear pipes
 	pipes.clear()
 	# generate starting pipes
 	generate_pipes()
@@ -52,6 +55,7 @@ func start_game():
 
 func stop_game():
 	$PipeTimer.stop()
+	$CanvasLayer/GameOver.show()
 	$Bird.flying = false
 	game_running = false
 	game_over = true
@@ -97,3 +101,7 @@ func bird_hit():
 func _on_ground_hit():
 	$Bird.falling = false
 	stop_game()
+
+
+func _on_game_over_restart():
+	new_game()

@@ -18,7 +18,7 @@ size = Vector2(72, 524)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cm1af"]
 size = Vector2(35, 200)
 
-[node name="Pipe" type="Area2D"]
+[node name="Pipe" type="Area2D" groups=["pipes"]]
 script = ExtResource("1_dbltw")
 
 [node name="Lower" type="Sprite2D" parent="."]
