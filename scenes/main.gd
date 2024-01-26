@@ -84,4 +84,5 @@ func _on_pipe_timer_timeout():
 	generate_pipes()
 
 func bird_hit():
-	pass
+	$Bird.falling = true
+	stop_game()
