@@ -5,7 +5,7 @@ var game_running : bool
 var game_over : bool
 var scroll
 var score
-const SCROLL_SPEED : int = 4
+var SCROLL_SPEED : int = 200
 var screen_size : Vector2i # placeholder
 var ground_height : int	# placeholder
 var pipes : Array # stores all pipes
@@ -14,6 +14,7 @@ const PIPE_RANGE : int = 200
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	screen_size = get_window().size
 	new_game()
 
 func new_game():
@@ -42,5 +43,9 @@ func start_game():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	log(delta)
-	pass
+	if game_running:
+		scroll += SCROLL_SPEED * delta
+		if scroll > screen_size.x:
+			scroll = 0
+		# move ground node
+		$Ground.position.x = -scroll
