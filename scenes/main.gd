@@ -39,6 +39,7 @@ func _input(event):
 				else:
 					if $Bird.flying:
 						$Bird.flap()
+						check_top()
 
 
 func start_game():
@@ -47,6 +48,12 @@ func start_game():
 	$Bird.flap()
 	#start pipe counter
 	$PipeTimer.start()
+
+func stop_game():
+	$PipeTimer.stop()
+	$Bird.flying = false
+	game_running = false
+	game_over = true
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -68,6 +75,10 @@ func generate_pipes():
 	add_child(pipe)
 	pipes.append(pipe)
 
+func check_top():
+	if $Bird.position.y < 0:
+		$Bird.falling = true
+		stop_game()
 
 func _on_pipe_timer_timeout():
 	generate_pipes()
