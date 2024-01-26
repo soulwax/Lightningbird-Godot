@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dogfodcfu03ac"]
+
+[ext_resource type="Texture2D" uid="uid://d38ceuoo614k4" path="res://assets/bg.png" id="1_ftlci"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_ftlci")
+offset = Vector2(432, 384)
