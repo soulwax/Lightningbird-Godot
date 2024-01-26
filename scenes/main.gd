@@ -14,8 +14,17 @@ const PIPE_RANGE : int = 200
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	new_game()
+
+func new_game():
+	# reset variables
+	game_running = false
+	game_over = false
+	score = 0
+	scroll = 0
+	$Bird.reset()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	log(delta)
 	pass
