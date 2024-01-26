@@ -7,7 +7,7 @@ var game_running : bool
 var game_over : bool
 var scroll
 var score
-var SCROLL_SPEED : int = 200
+var SCROLL_SPEED : int = 300
 var screen_size : Vector2i # placeholder
 var ground_height : int	# placeholder
 var pipes : Array # stores all pipes
@@ -25,6 +25,7 @@ func new_game():
 	game_over = false
 	score = 0
 	scroll = 0
+	$CanvasLayer/ScoreLabel.text = "SCORE: " + str(score)
 	pipes.clear()
 	# generate starting pipes
 	generate_pipes()
@@ -72,8 +73,13 @@ func generate_pipes():
 	pipe.position.x = screen_size.x + PIPE_DELAY
 	pipe.position.y = (screen_size.y - ground_height) / 2.0 + randi_range(-PIPE_RANGE, PIPE_RANGE)
 	pipe.hit.connect(bird_hit)
+	pipe.scored.connect(scored)
 	add_child(pipe)
 	pipes.append(pipe)
+	
+func scored():
+	score += 1
+	$CanvasLayer/ScoreLabel.text = "SCORE: " + str(score)
 
 func check_top():
 	if $Bird.position.y < 0:
